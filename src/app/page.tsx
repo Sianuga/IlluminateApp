@@ -21,7 +21,6 @@ function generateRandomCode() {
 }
 
 export default function Dashboard() {
-  // Using context values from GameContext
   const {
     points,
     setPoints,
@@ -33,17 +32,13 @@ export default function Dashboard() {
     setBenefits,
   } = useGame();
 
-  // For the “daily prize” box
   const [message, setMessage] = useState<string>("");
-  // Daily prize can only be used if the user has checked in today.
   const [dailyPriceLocked, setDailyPriceLocked] = useState<boolean>(true);
-  // Track whether the daily prize has been collected today
-  const [dailyPrizeCollected, setDailyPrizeCollected] =
-    useState<boolean>(false);
-  // Timer string until midnight
+  const [dailyPrizeCollected, setDailyPrizeCollected] = useState<boolean>(false);
   const [timeUntilMidnight, setTimeUntilMidnight] = useState<string>("");
+  const [showRedeemModal, setShowRedeemModal] = useState(false);
+  const [redeemedBenefit, setRedeemedBenefit] = useState<Benefit | null>(null);
 
-  // Check localStorage on mount: if the daily prize was already collected today, set dailyPrizeCollected = true
   useEffect(() => {
     const lastDailyPrize = localStorage.getItem("lastDailyPrize");
     if (lastDailyPrize === getTodayString()) {
@@ -51,7 +46,6 @@ export default function Dashboard() {
     }
   }, []);
 
-  // Whenever dailyPrizeCollected becomes true, start the countdown timer
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (dailyPrizeCollected) {
@@ -60,16 +54,9 @@ export default function Dashboard() {
         const midnight = new Date();
         midnight.setHours(24, 0, 0, 0);
         const diff = midnight.getTime() - now.getTime();
-        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(
-          2,
-          "0"
-        );
-        const minutes = String(
-          Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-        ).padStart(2, "0");
-        const seconds = String(
-          Math.floor((diff % (1000 * 60)) / 1000)
-        ).padStart(2, "0");
+        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
+        const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0");
+        const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, "0");
         setTimeUntilMidnight(`${hours}:${minutes}:${seconds}`);
       }, 1000);
     }
@@ -78,16 +65,11 @@ export default function Dashboard() {
     };
   }, [dailyPrizeCollected]);
 
-  // Whenever lastCheckIn changes, determine if the daily prize is locked
   useEffect(() => {
     const today = getTodayString();
     setDailyPriceLocked(lastCheckIn !== today);
   }, [lastCheckIn]);
 
-  /**
-   * Daily check‑in logic.
-   * Called when user clicks “Check In” inside the daily prize box.
-   */
   const handleCheckIn = () => {
     const today = getTodayString();
 
@@ -116,10 +98,6 @@ export default function Dashboard() {
     return true;
   };
 
-  /**
-   * Handle clicking the daily prize box.
-   * Once clicked (and if available), awards bonus points and locks the prize for the rest of the day.
-   */
   const handleDailyPriceClick = () => {
     if (dailyPriceLocked) {
       setMessage("You need to check in before receiving the reward!");
@@ -136,21 +114,13 @@ export default function Dashboard() {
     localStorage.setItem("lastDailyPrize", getTodayString());
   };
 
-  /**
-   * This function is triggered by the “Check In” button inside the daily prize box
-   * as well as the daily streak "Collect" button.
-   */
   const handleDailyPriceCheckIn = () => {
     const success = handleCheckIn();
     if (success) {
-      // If check-in succeeds, daily prize becomes available (if not already collected)
       setDailyPriceLocked(false);
     }
   };
 
-  /**
-   * Redeem a benefit.
-   */
   const handleRedeemBenefit = (id: number) => {
     const benefit = benefits.find((b) => b.id === id);
     if (!benefit) return;
@@ -163,16 +133,14 @@ export default function Dashboard() {
       return;
     }
     const code = generateRandomCode();
+    const updatedBenefit = { ...benefit, redeemed: true, code };
+
     setPoints(points - benefit.cost);
-    setBenefits(
-      benefits.map((b) => (b.id === id ? { ...b, redeemed: true, code } : b))
-    );
-    setMessage(`You redeemed "${benefit.title}".`);
+    setBenefits(benefits.map((b) => (b.id === id ? updatedBenefit : b)));
+    setRedeemedBenefit(updatedBenefit);
+    setShowRedeemModal(true);
   };
 
-  /**
-   * Monthly reset (for debugging).
-   */
   const handleReset = () => {
     setPoints(0);
     setDayStreak(0);
@@ -184,9 +152,7 @@ export default function Dashboard() {
     localStorage.removeItem("lastCheckIn");
     localStorage.removeItem("benefits");
     localStorage.removeItem("lastDailyPrize");
-    setMessage(
-      "Monthly reset complete. Points, streak, and benefits restored."
-    );
+    setMessage("Monthly reset complete. Points, streak, and benefits restored.");
   };
 
   return (
@@ -199,10 +165,8 @@ export default function Dashboard() {
         <div className="top-bar-right">{points} pts</div>
       </div>
 
-      {/* On-site benefits section */}
       <div className="section-title">On-site benefits</div>
       <div className="benefits-container">
-        {/* Daily prize box */}
         <div
           className={`benefit-card daily-price-card ${
             dailyPrizeCollected ? "disabled" : ""
@@ -236,7 +200,6 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Render remaining benefits */}
         {benefits
           .filter((b) => !b.redeemed)
           .map((b) => (
@@ -260,7 +223,6 @@ export default function Dashboard() {
           ))}
       </div>
 
-      {/* Daily streak display */}
       <div className="streak-section">
         <div className="streak-highlight">
           <div className="streak-text">
@@ -292,21 +254,17 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* News Section (placeholder) */}
       <div className="section-title">News</div>
-      <div className="news-container">{/* ... news cards ... */}</div>
+      <div className="news-container"></div>
 
-      {/* Message / status */}
       {message && <div className="message">{message}</div>}
 
-      {/* Debug button row */}
       <div className="button-row">
         <button className="button" onClick={handleReset}>
           Reset
         </button>
       </div>
 
-      {/* Bottom nav */}
       <div className="bottom-nav">
         <Link href="/" className="nav-item">
           <svg width="20" height="20" fill="currentColor">
@@ -327,6 +285,22 @@ export default function Dashboard() {
           <span>History</span>
         </Link>
       </div>
+
+      {showRedeemModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Successfully redeemed {redeemedBenefit?.title}!</h3>
+            <p>Your unique code:</p>
+            <div className="code-area">{redeemedBenefit?.code}</div>
+            <button
+              className="modal-close-button"
+              onClick={() => setShowRedeemModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
