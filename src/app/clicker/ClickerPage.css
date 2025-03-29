@@ -1,0 +1,190 @@
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  color: #333;
+}
+
+/* Main container: full screen & centered */
+.clicker-main-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Content wrapper */
+.clicker-content {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Top bar */
+.clicker-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.clicker-top-bar-left h1 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #d32f2f;
+}
+
+.clicker-top-bar-right {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #d32f2f;
+}
+
+/* Card styling */
+.clicker-card {
+  background-color: #ffebee;
+  margin: 1rem;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress display */
+.clicker-progress {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #d32f2f;
+  margin-bottom: 1rem;
+}
+
+/* Instruction text */
+.clicker-instructions {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+/* Button styling */
+.clicker-button {
+  width: 100%;
+  background-color: #d32f2f;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clicker-button:hover {
+  background-color: #b71c1c;
+}
+
+.clicker-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Message feedback */
+.clicker-message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+/* Full-screen vibration animation */
+@keyframes vibrate {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.animate-vibrate {
+  animation: vibrate 0.5s;
+}
+
+/* Particle effect container */
+.particle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Particle style */
+.particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background-color: #d32f2f;
+  border-radius: 50%;
+  opacity: 1;
+  animation: particleFly 1s ease-out forwards;
+}
+
+/* Particle keyframes using custom properties for dx and dy */
+@keyframes particleFly {
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+}
+
+/* Overlay when clicker is complete */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-message {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #d32f2f;
+  text-align: center;
+}
