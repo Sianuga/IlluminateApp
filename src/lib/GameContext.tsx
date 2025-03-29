@@ -30,6 +30,13 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [lastCheckIn, setLastCheckIn] = useState<string | null>(null);
   const [benefits, setBenefits] = useState<Benefit[]>([
     {
+      id: 3,
+      title: "Hamburger",
+      cost: 1000,
+      redeemed: false,
+      image: "https://via.placeholder.com/120x80.png?text=Hamburger",
+    },
+    {
       id: 1,
       title: "Mala Chicken McCrispy (2pc)",
       cost: 900,
@@ -42,13 +49,6 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       cost: 1800,
       redeemed: false,
       image: "https://via.placeholder.com/120x80.png?text=McNuggets",
-    },
-    {
-      id: 3,
-      title: "Hamburger",
-      cost: 1000,
-      redeemed: false,
-      image: "https://via.placeholder.com/120x80.png?text=Hamburger",
     },
   ]);
 
