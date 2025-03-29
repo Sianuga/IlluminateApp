@@ -130,13 +130,12 @@ export default function Dashboard() {
         <div className="top-bar-right">{points} pts</div>
       </div>
       {/* Render available benefits */}
-      <div className="section-title">Rewards</div>
+      <div className="section-title">On-site benefits</div>
       <div className="benefits-container">
         {benefits
           .filter((b) => !b.redeemed)
           .map((b) => (
             <div key={b.id} className="benefit-card">
-              <img src={b.image} alt={b.title} className="benefit-image" />
               <div className="benefit-title">{b.title}</div>
               <div className="benefit-cost">{b.cost} pts</div>
               <button

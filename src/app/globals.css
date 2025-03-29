@@ -1,4 +1,4 @@
-/* Reset & base styles */
+/* RESET & BASE STYLES */
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +9,7 @@ html,
 body {
   width: 100%;
   min-height: 100%;
-  background-color: #fafafa;
+  background-color: #ececec;
   color: #333;
   font-family: "Inter", sans-serif;
 }
@@ -20,23 +20,23 @@ body {
   min-height: 100vh;
 }
 
-/* Main container simulating mobile screen width */
+/* MAIN CONTAINER (simulating mobile screen width) */
 .main-container {
   width: 100%;
   max-width: 420px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #ececec; /* White */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Top bar */
+/* TOP BAR */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: #ffe600; /* McD’s style bright yellow */
+  background-color: #ececec; /* White background */
   padding: 1rem;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -47,32 +47,33 @@ body {
 }
 
 .top-bar-left h1 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #c40000; /* McD’s red */
+  color: #000; /* Darker text for headline */
+  margin-bottom: 0.2rem;
 }
 
 .top-bar-left span {
-  font-size: 0.85rem;
-  color: #333;
+  font-size: 0.9rem;
+  color: #666; /* Subtle secondary text */
 }
 
 .top-bar-right {
   font-size: 1rem;
   font-weight: 700;
-  color: #c40000;
+  color: #000; /* Points in black */
   margin-top: 0.2rem;
 }
 
-/* Section title */
+/* SECTION TITLE */
 .section-title {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 800;
   margin: 1rem 1rem 0.5rem;
-  color: #333;
+  color: #000; /* Darker title color */
 }
 
-/* On-site benefits (like a McDonald’s rewards style) */
+/* BENEFITS (On-site benefits / Rewards) */
 .benefits-container {
   display: flex;
   gap: 0.8rem;
@@ -80,11 +81,12 @@ body {
   margin-right: 1rem;
   overflow-x: auto;
   margin-bottom: 1rem;
+  padding-bottom: 0.5rem; /* small spacing at bottom */
 }
 
 .benefit-card {
-  min-width: 140px;
-  background-color: #fff7e6; /* pale yellow */
+  min-width: 120px;
+  background-color: #bc142e; /* Bold red background */
   border-radius: 8px;
   padding: 0.8rem;
   display: flex;
@@ -92,6 +94,7 @@ body {
   justify-content: space-between;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
+  color: #fff; /* White text on red */
 }
 
 .benefit-image {
@@ -106,26 +109,26 @@ body {
 .benefit-title {
   font-weight: 700;
   margin-bottom: 0.3rem;
-  color: #c40000;
+  font-size: 0.9rem;
 }
 
 .benefit-cost {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   margin-bottom: 0.5rem;
-  color: #333;
 }
 
 .benefit-button {
-  background-color: #c40000;
-  color: #fff;
+  background-color: #ececec;
+  color: #bc142e;
   border: none;
   border-radius: 6px;
   padding: 0.4rem 0.6rem;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   cursor: pointer;
+  font-weight: 600;
 }
 
-/* Day streak area */
+/* DAY STREAK AREA */
 .streak-section {
   margin-bottom: 1rem;
 }
@@ -135,21 +138,21 @@ body {
   align-items: center;
   justify-content: space-between;
   margin: 0 1rem 0.5rem;
-  background-color: #ffe6e6;
+  background-color: #ececec;
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
-  border: 1px solid #ffcaca;
+  border: 1px solid #e0e0e0;
 }
 
 .streak-text {
   font-size: 0.9rem;
-  color: #c40000;
+  color: #000;
   font-weight: 700;
 }
 
 .streak-subtext {
   font-size: 0.8rem;
-  color: #333;
+  color: #666;
   max-width: 50%;
   text-align: right;
 }
@@ -164,32 +167,32 @@ body {
 
 .streak-card {
   min-width: 100px;
-  background-color: #ffe6e6;
+  background-color: #bc142e; /* Match benefits color for consistency */
   border-radius: 8px;
   padding: 0.6rem;
   text-align: center;
-  color: #333;
+  color: #ececec; /* White text on red */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
 }
 
 .streak-card p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   margin-bottom: 0.3rem;
   font-weight: 500;
 }
 
 .streak-collect-button {
-  background-color: #c40000;
-  color: #fff;
+  background-color: #ececec;
+  color: #bc142e;
   border: none;
   border-radius: 4px;
   padding: 0.3rem 0.6rem;
   font-size: 0.75rem;
   cursor: pointer;
+  font-weight: 600;
 }
 
-/* News */
+/* NEWS */
 .news-container {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -225,18 +228,18 @@ body {
 .news-title {
   font-weight: 600;
   margin-bottom: 0.3rem;
-  color: #c40000;
+  color: #1d1d1d;
 }
 
-/* Message */
+/* MESSAGE */
 .message {
   margin: 0.5rem 1rem;
   font-style: italic;
   font-size: 0.85rem;
-  color: #c40000;
+  color: #1d1d1d;
 }
 
-/* Buttons row (Check in, Clicker, Reset) */
+/* BUTTONS ROW (Check in, Clicker, Reset) */
 .button-row {
   display: flex;
   gap: 0.5rem;
@@ -245,24 +248,25 @@ body {
 }
 
 .button {
-  background-color: #c40000;
+  background-color: #bc142e;
   color: #fff;
   border: none;
   border-radius: 6px;
   padding: 0.6rem 1rem;
   cursor: pointer;
   font-size: 0.85rem;
+  font-weight: 600;
 }
 
-/* Bottom navigation */
+/* BOTTOM NAV */
 .bottom-nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 60px;
-  background-color: #ffe600;
+  background-color: #ececec; /* White bottom nav */
   border-top: 1px solid #e0e0e0;
-  margin-top: auto; /* push to bottom if content is short */
+  margin-top: auto; /* Push to bottom if content is short */
 }
 
 .nav-item {
@@ -278,7 +282,7 @@ body {
   margin-bottom: 2px;
 }
 
-/* Redeemed items page */
+/* REDEEMED ITEMS PAGE */
 .redeemed-container {
   padding: 1rem;
 }
@@ -286,7 +290,7 @@ body {
 .redeemed-header {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #c40000;
+  color: #1d1d1d;
   margin-bottom: 1rem;
 }
 
@@ -303,7 +307,7 @@ body {
 }
 
 .redeemed-item {
-  background-color: #fff7e6;
+  background-color: #bc142e;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0.8rem;
@@ -311,6 +315,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  color: #fff; /* White text on red */
 }
 
 .redeemed-item-img {
@@ -319,32 +324,31 @@ body {
   border-radius: 6px;
   object-fit: cover;
   margin-bottom: 0.5rem;
-  background-color: #fff;
+  background-color: #ececec;
 }
 
 .redeemed-item-title {
   font-weight: 700;
-  color: #c40000;
   margin-bottom: 0.2rem;
 }
 
 .redeemed-item-cost {
   font-size: 0.8rem;
-  color: #333;
   margin-bottom: 0.5rem;
 }
 
 .redeemed-item-button {
-  background-color: #c40000;
-  color: #fff;
+  background-color: #ececec;
+  color: #bc142e;
   border: none;
   border-radius: 4px;
   padding: 0.3rem 0.6rem;
   font-size: 0.75rem;
   cursor: pointer;
+  font-weight: 600;
 }
 
-/* Hidden code area or modal */
+/* CODE AREA (optional) */
 .code-area {
   margin-top: 0.5rem;
   padding: 0.5rem;
@@ -352,5 +356,5 @@ body {
   border-radius: 4px;
   font-size: 0.85rem;
   color: #333;
-  background-color: #fff;
+  background-color: #ececec;
 }
