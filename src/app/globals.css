@@ -77,27 +77,32 @@ body {
   font-size: 3rem;
 }
 
-/* BENEFITS (On-site benefits / Rewards) */
+/* BENEFITS CONTAINER: Horizontal scrolling */
 .benefits-container {
   display: flex;
   gap: 0.8rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  overflow-x: auto;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem; /* small spacing at bottom */
+  margin: 0 1rem 1rem;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: nowrap; /* Prevents wrapping of tiles */
+  padding-bottom: 0.5rem; /* Optional spacing at bottom */
 }
 
+/* BENEFIT TILE: Fixed size */
 .benefit-card {
-  min-width: 120px;
+  flex: 0 0 auto; /* Prevents shrinking or growing */
+  width: 120px; /* Fixed width */
+  height: 150px; /* Fixed height */
   background-color: #bc142e; /* Bold red background */
   border-radius: 8px;
   padding: 0.8rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
+  text-wrap: wrap;
+  padding: 10px;
   color: #fff; /* White text on red */
 }
 
@@ -464,7 +469,7 @@ body {
   background: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin: 0 1rem;
 }
 

@@ -34,7 +34,8 @@ export default function Dashboard() {
 
   const [message, setMessage] = useState<string>("");
   const [dailyPriceLocked, setDailyPriceLocked] = useState<boolean>(true);
-  const [dailyPrizeCollected, setDailyPrizeCollected] = useState<boolean>(false);
+  const [dailyPrizeCollected, setDailyPrizeCollected] =
+    useState<boolean>(false);
   const [timeUntilMidnight, setTimeUntilMidnight] = useState<string>("");
   const [showRedeemModal, setShowRedeemModal] = useState(false);
   const [redeemedBenefit, setRedeemedBenefit] = useState<Benefit | null>(null);
@@ -54,9 +55,16 @@ export default function Dashboard() {
         const midnight = new Date();
         midnight.setHours(24, 0, 0, 0);
         const diff = midnight.getTime() - now.getTime();
-        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
-        const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, "0");
-        const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, "0");
+        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(
+          2,
+          "0"
+        );
+        const minutes = String(
+          Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+        ).padStart(2, "0");
+        const seconds = String(
+          Math.floor((diff % (1000 * 60)) / 1000)
+        ).padStart(2, "0");
         setTimeUntilMidnight(`${hours}:${minutes}:${seconds}`);
       }, 1000);
     }
@@ -152,7 +160,9 @@ export default function Dashboard() {
     localStorage.removeItem("lastCheckIn");
     localStorage.removeItem("benefits");
     localStorage.removeItem("lastDailyPrize");
-    setMessage("Monthly reset complete. Points, streak, and benefits restored.");
+    setMessage(
+      "Monthly reset complete. Points, streak, and benefits restored."
+    );
   };
 
   return (
@@ -179,15 +189,21 @@ export default function Dashboard() {
           </div>
           {dailyPriceLocked ? (
             <>
-              <p>You need to check in before receiving the reward</p>
+              <p>Daily Prize</p>
               <Link href="/clicker" className="nav-item">
-                <button onClick={handleDailyPriceCheckIn}>Check In</button>
+                <button
+                  onClick={handleDailyPriceCheckIn}
+                  className="benefit-button"
+                >
+                  Check In
+                </button>
               </Link>
             </>
           ) : (
             <>
               <p>Daily prize</p>
               <button
+                className="benefit-button"
                 onClick={handleDailyPriceClick}
                 disabled={dailyPrizeCollected}
               >
@@ -267,8 +283,8 @@ export default function Dashboard() {
             <h3 className="news-title">Summer Team Building Event</h3>
             <p className="news-date">2023/08/28, 16:27</p>
             <p className="news-excerpt">
-              Join us for an exciting afternoon of team activities and networking.
-              Free snacks and drinks provided for all participants!
+              Join us for an exciting afternoon of team activities and
+              networking. Free snacks and drinks provided for all participants!
             </p>
           </div>
         </div>
