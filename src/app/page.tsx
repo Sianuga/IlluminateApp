@@ -1,66 +1,103 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
-// Helper functions to work with dates
-const getTodayString = (): string => {
-  return new Date().toISOString().split("T")[0];
-};
-
+// Helper functions
+const getTodayString = (): string => new Date().toISOString().split("T")[0];
 const getYesterdayString = (): string => {
-  const y = new Date();
-  y.setDate(y.getDate() - 1);
-  return y.toISOString().split("T")[0];
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().split("T")[0];
 };
+const isFriday = (): boolean => new Date().getDay() === 5;
 
-const isFriday = (): boolean => {
-  return new Date().getDay() === 5; // 5 => Friday
-};
+function generateRandomCode() {
+  // e.g. 8-char code from A-Z/0-9
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  for (let i = 0; i < 8; i++) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
+}
 
-type Reward = {
+type Benefit = {
   id: number;
-  name: string;
+  title: string;
   cost: number;
+  redeemed: boolean;
+  image: string;
+  code?: string; // assigned upon redemption
 };
 
-const rewards: Reward[] = [
-  { id: 1, name: "Coffee Voucher", cost: 10 },
-  { id: 2, name: "Free Snack", cost: 20 },
-  { id: 3, name: "Office Merchandise", cost: 50 },
-];
-
-export default function Home() {
+export default function Dashboard() {
   const [points, setPoints] = useState<number>(0);
   const [dayStreak, setDayStreak] = useState<number>(0);
   const [lastCheckIn, setLastCheckIn] = useState<string | null>(null);
   const [clickCounter, setClickCounter] = useState<number>(0);
   const [message, setMessage] = useState<string>("");
 
+  // On-site benefits (mock). Each can be redeemed once.
+  // Use your own images or placeholders
+  const [benefits, setBenefits] = useState<Benefit[]>([
+    {
+      id: 1,
+      title: "Mala Chicken McCrispy (2pc)",
+      cost: 900,
+      redeemed: false,
+      image: "https://via.placeholder.com/120x80.png?text=Mala+McCrispy",
+    },
+    {
+      id: 2,
+      title: "Chicken McNuggets (20pc)",
+      cost: 1800,
+      redeemed: false,
+      image: "https://via.placeholder.com/120x80.png?text=McNuggets",
+    },
+    {
+      id: 3,
+      title: "Hamburger",
+      cost: 1000,
+      redeemed: false,
+      image: "https://via.placeholder.com/120x80.png?text=Hamburger",
+    },
+  ]);
+
+  // Load from localStorage on mount
   useEffect(() => {
     const savedPoints = localStorage.getItem("points");
     const savedStreak = localStorage.getItem("dayStreak");
     const savedLastCheckIn = localStorage.getItem("lastCheckIn");
+    const savedBenefits = localStorage.getItem("benefits");
+
     if (savedPoints) setPoints(Number(savedPoints));
     if (savedStreak) setDayStreak(Number(savedStreak));
     if (savedLastCheckIn) setLastCheckIn(savedLastCheckIn);
+    if (savedBenefits) setBenefits(JSON.parse(savedBenefits));
   }, []);
 
+  // Save to localStorage whenever relevant state changes
   useEffect(() => {
     localStorage.setItem("points", points.toString());
     localStorage.setItem("dayStreak", dayStreak.toString());
     if (lastCheckIn) localStorage.setItem("lastCheckIn", lastCheckIn);
-  }, [points, dayStreak, lastCheckIn]);
+    localStorage.setItem("benefits", JSON.stringify(benefits));
+  }, [points, dayStreak, lastCheckIn, benefits]);
 
-  // Daily check-in logic
+  // Daily check-in
   const handleCheckIn = () => {
     const today = getTodayString();
     if (lastCheckIn === today) {
       setMessage("You have already checked in today!");
       return;
     }
+
+    // Update streak
     const newStreak = lastCheckIn === getYesterdayString() ? dayStreak + 1 : 1;
     setDayStreak(newStreak);
 
+    // Calculate daily points
     const basePoints = 10;
     const streakBonus = newStreak * 5;
     const dailyDrop = Math.floor(Math.random() * 16) + 5; // random 5..20
@@ -69,136 +106,175 @@ export default function Home() {
 
     setPoints(points + totalBonus);
     setLastCheckIn(today);
+
     setMessage(
-      `Checked in! +${totalBonus} points (Base: 10, Streak: ${streakBonus}, Daily Drop: ${dailyDrop}${
-        isFriday() ? ", Friday Bonus: 10" : ""
-      }).`
+      `Checked in! +${totalBonus} points (Base: 10, Streak: ${streakBonus}, Drop: ${dailyDrop}${
+        isFriday() ? ", Fri: 10" : ""
+      }). Keep it going!`
     );
   };
 
-  // Clicker bonus logic (requires 10 clicks)
+  // Clicker bonus (10 clicks)
   const handleClicker = () => {
     const newCount = clickCounter + 1;
     if (newCount < 10) {
       setClickCounter(newCount);
       setMessage(`Click count: ${newCount} / 10`);
     } else {
-      const clickBonus = Math.floor(Math.random() * 11) + 10; // 10..20
+      const clickBonus = Math.floor(Math.random() * 11) + 12220; // 10..20
       setPoints(points + clickBonus);
       setClickCounter(0);
       setMessage(`Clicker activated! +${clickBonus} points.`);
     }
   };
 
-  // Redeem a reward
-  const handleRedeem = (reward: Reward) => {
-    if (points < reward.cost) {
-      setMessage(`Not enough points for ${reward.name}!`);
+  // Redeem a benefit (one-time)
+  const handleRedeemBenefit = (id: number) => {
+    const benefit = benefits.find((b) => b.id === id);
+    if (!benefit) return;
+    if (benefit.redeemed) {
+      setMessage(`You have already redeemed "${benefit.title}".`);
       return;
     }
-    setPoints(points - reward.cost);
-    setMessage(`You redeemed: ${reward.name}.`);
+    if (points < benefit.cost) {
+      setMessage(`Not enough points for "${benefit.title}"!`);
+      return;
+    }
+    // Deduct cost and mark as redeemed, generate code
+    const code = generateRandomCode();
+    setPoints(points - benefit.cost);
+    setBenefits(
+      benefits.map((b) => (b.id === id ? { ...b, redeemed: true, code } : b))
+    );
+    setMessage(`You redeemed "${benefit.title}".`);
   };
 
-  // Reset points and streak (simulate monthly reset)
+  // (Optional) Collect from daily streak card for “Today”
+  const handleCollectStreak = () => {
+    // You could define a separate small bonus or simply call handleCheckIn
+    handleCheckIn();
+  };
+
+  // Monthly reset
   const handleReset = () => {
     setPoints(0);
     setDayStreak(0);
     setLastCheckIn(null);
     setClickCounter(0);
+    setBenefits(
+      benefits.map((b) => ({
+        ...b,
+        redeemed: false,
+        code: undefined,
+      }))
+    );
     localStorage.removeItem("points");
     localStorage.removeItem("dayStreak");
     localStorage.removeItem("lastCheckIn");
-    setMessage("Monthly reset complete. Points and streak are now zero.");
+    localStorage.removeItem("benefits");
+    setMessage(
+      "Monthly reset complete. Points, streak, and benefits restored."
+    );
   };
 
   return (
     <main className="main-container">
-      {/* Top Bar */}
+      {/* Top bar */}
       <div className="top-bar">
-        <h1>Hello, good to see you!</h1>
-      </div>
-
-      {/* Dashboard Header */}
-      <div className="dashboard-header">
-        <div className="points-info">{points} points</div>
-        <div>Day streak: {dayStreak}</div>
+        <div className="top-bar-left">
+          <h1>Hello, good to see you!</h1>
+          <span>Dashboard</span>
+        </div>
+        <div className="top-bar-right">{points} pts</div>
       </div>
 
       {/* On-site benefits */}
-      <div className="section-title">On-site benefits</div>
+      <div className="section-title">Rewards</div>
       <div className="benefits-container">
-        {/* Just placeholder cards to mirror your mockup style */}
-        <div className="benefit-card">
-          <p>Hamburger</p>
-          <p>100 pts</p>
-          <button
-            className="collect-button"
-            onClick={() => setMessage("Example benefit clicked!")}
-          >
-            Collect
-          </button>
-        </div>
-        <div className="benefit-card">
-          <p>Snack</p>
-          <p>200 pts</p>
-          <button
-            className="collect-button"
-            onClick={() => setMessage("Example benefit clicked!")}
-          >
-            Collect
-          </button>
-        </div>
-        <div className="benefit-card">
-          <p>Premium Seat</p>
-          <p>500 pts</p>
-          <button
-            className="collect-button"
-            onClick={() => setMessage("Example benefit clicked!")}
-          >
-            Collect
-          </button>
-        </div>
+        {benefits
+          .filter((b) => !b.redeemed)
+          .map((b) => (
+            <div key={b.id} className="benefit-card">
+              <img src={b.image} alt={b.title} className="benefit-image" />
+              <div className="benefit-title">{b.title}</div>
+              <div className="benefit-cost">{b.cost} pts</div>
+              <button
+                className="benefit-button"
+                onClick={() => handleRedeemBenefit(b.id)}
+              >
+                Redeem
+              </button>
+            </div>
+          ))}
       </div>
 
-      {/* Daily streak */}
-      <div className="section-title">Daily streak</div>
-      <div className="daily-streak-container">
-        <div className="streak-card">
-          <p>Day 1</p>
-          <p>+125 pts</p>
+      {/* Day Streak */}
+      <div className="streak-section">
+        <div className="streak-highlight">
+          <div className="streak-text">
+            Streak: {dayStreak} {dayStreak === 1 ? "day" : "days"}
+          </div>
+          <div className="streak-subtext">
+            Don’t break it! Check in daily for bonus points.
+          </div>
         </div>
-        <div className="streak-card">
-          <p>Day 2</p>
-          <p>+?? pts</p>
-        </div>
-        <div className="streak-card">
-          <p>Day 3</p>
-          <p>+?? pts</p>
-        </div>
-        <div className="streak-card">
-          <p>Day 4</p>
-          <p>+?? pts</p>
+
+        <div className="daily-streak-container">
+          {/* Example squares for visual effect. The “Today” card includes a collect button. */}
+          <div className="streak-card">
+            <p>Day {dayStreak - 1}</p>
+            <p>+75 pts</p>
+          </div>
+          <div className="streak-card">
+            <p>Today</p>
+            <p>+100 pts</p>
+            <button
+              className="streak-collect-button"
+              onClick={handleCollectStreak}
+            >
+              Collect
+            </button>
+          </div>
+          <div className="streak-card">
+            <p>Day {dayStreak + 1}</p>
+            <p>+125 pts</p>
+          </div>
         </div>
       </div>
 
       {/* News */}
       <div className="section-title">News</div>
       <div className="news-container">
-        <div className="news-item">
-          <img src="https://placekitten.com/100/100" alt="News 1" />
-          <div>Headline #1: Office updates, events, etc.</div>
+        <div className="news-card">
+          <img
+            src="https://placekitten.com/60/60"
+            alt="News 1"
+            className="news-image"
+          />
+          <div className="news-text">
+            <div className="news-title">Office Update</div>
+            <div>3/28/2025, 16:27</div>
+            <div>Check out upcoming events in the office!</div>
+          </div>
         </div>
-        <div className="news-item">
-          <img src="https://placekitten.com/101/101" alt="News 2" />
-          <div>Headline #2: New cafe opening in the building.</div>
+        <div className="news-card">
+          <img
+            src="https://placekitten.com/61/61"
+            alt="News 2"
+            className="news-image"
+          />
+          <div className="news-text">
+            <div className="news-title">Cafe Specials</div>
+            <div>3/29/2025, 10:00</div>
+            <div>New menu items & Friday promotions!</div>
+          </div>
         </div>
       </div>
 
-      {/* Display messages */}
+      {/* Show messages */}
       {message && <div className="message">{message}</div>}
 
-      {/* Buttons row (Check In, Clicker, Reset) */}
+      {/* Buttons row */}
       <div className="button-row">
         <button className="button" onClick={handleCheckIn}>
           Check In
@@ -211,39 +287,26 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Shop */}
-      <div className="section-title">Shop</div>
-      <ul className="shop-list">
-        {rewards.map((r) => (
-          <li className="shop-item" key={r.id}>
-            {r.name} - Cost: {r.cost} pts
-            <button className="button" onClick={() => handleRedeem(r)}>
-              Redeem
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      {/* Bottom navigation */}
+      {/* Bottom nav */}
       <div className="bottom-nav">
-        <div className="bottom-nav-item">
+        <Link href="/" className="nav-item">
           <svg width="20" height="20" fill="currentColor">
             <circle cx="10" cy="10" r="9" />
           </svg>
           <span>Dashboard</span>
-        </div>
-        <div className="bottom-nav-item">
+        </Link>
+        <Link href="/redeemed" className="nav-item">
           <svg width="20" height="20" fill="currentColor">
             <rect x="4" y="4" width="12" height="12" rx="2" />
           </svg>
-          <span>Manage</span>
-        </div>
-        <div className="bottom-nav-item">
+          <span>Redeemed</span>
+        </Link>
+        <Link href="/history" className="nav-item">
           <svg width="20" height="20" fill="currentColor">
             <path d="M3 10h14M3 6h14M3 14h14" />
           </svg>
           <span>History</span>
-        </div>
+        </Link>
       </div>
     </main>
   );
