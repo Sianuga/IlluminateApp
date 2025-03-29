@@ -91,7 +91,7 @@ body {
 .benefit-card {
   flex: 0 0 auto; /* Prevents shrinking or growing */
   width: 120px; /* Fixed width */
-  height: 150px; /* Fixed height */
+  height: 170px; /* Fixed height */
   background-color: #bc142e; /* Bold red background */
   border-radius: 8px;
   padding: 0.8rem;
