@@ -6,11 +6,6 @@ import { GameProvider } from "@/lib/GameContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata = {
-//   title: "Gamification Demo",
-//   description: "Proof-of-concept gamification system in Next.js",
-// };
-
 export default function RootLayout({
   children,
 }: {
