@@ -73,6 +73,10 @@ body {
   color: #000; /* Darker title color */
 }
 
+.emoji {
+    font-size: 3rem;
+}
+
 /* BENEFITS (On-site benefits / Rewards) */
 .benefits-container {
   display: flex;
