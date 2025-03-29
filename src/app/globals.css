@@ -1,31 +1,201 @@
-@import "tailwindcss/index.css";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Reset & base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  @apply bg-neutral-900 text-neutral-100;
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+  font-family: "Inter", sans-serif;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  @apply text-pink-500;
+/* Container simulating mobile screen constraints */
+.main-container {
+  width: 100%;
+  max-width: 400px; /* Simulate mobile width */
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #111;
+  color: #fff;
+}
+
+.top-bar h1 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+/* Section headings */
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 1rem;
+}
+
+/* Points and On-site benefits */
+.dashboard-header {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.points-info {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.benefits-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  overflow-x: auto; /* horizontal scroll if needed */
+}
+
+.benefit-card {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 120px;
+  background-color: #fbcaca;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.benefit-card p {
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.collect-button {
+  background-color: #fff;
+  color: #333;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+/* Daily streak */
+.daily-streak-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  overflow-x: auto;
+}
+
+.streak-card {
+  flex: 0 0 auto;
+  width: 90px;
+  height: 90px;
+  background-color: #ffd7d7;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* News section */
+.news-container {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.news-item {
+  background-color: #eaeaea;
+  border-radius: 8px;
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.news-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Bottom nav */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.bottom-nav-item span {
+  margin-top: 2px;
+}
+
+/* Message & buttons (check-in, clicker, reset, redeem) */
+.message {
+  margin: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 1rem;
+}
+
+.button {
+  background-color: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Shop list */
+.shop-list {
+  margin: 0.5rem 1rem;
+  list-style: none;
+}
+
+.shop-item {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

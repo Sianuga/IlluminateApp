@@ -1,21 +1,21 @@
-// src/app/layout.tsx
-import React, { ReactNode } from "react";
 import "./globals.css";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Global Lottery",
-  description: "Office Gamification Proof of Concept",
+  title: "Gamification Demo",
+  description: "Proof-of-concept gamification system in Next.js",
 };
 
-/**
- * The global layout wraps all pages.
- */
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className="min-h-screen w-full bg-neutral-900 text-neutral-100">
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
