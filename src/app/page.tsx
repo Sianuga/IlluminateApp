@@ -254,7 +254,25 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* News Section */}
       <div className="section-title">News</div>
+      <div className="news-container">
+        <div className="news-box">
+          <img
+            src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+            alt="Office event"
+            className="news-image"
+          />
+          <div className="news-content">
+            <h3 className="news-title">Summer Team Building Event</h3>
+            <p className="news-date">2023/08/28, 16:27</p>
+            <p className="news-excerpt">
+              Join us for an exciting afternoon of team activities and networking.
+              Free snacks and drinks provided for all participants!
+            </p>
+          </div>
+        </div>
+      </div>
       <div className="news-container"></div>
 
       {message && <div className="message">{message}</div>}
