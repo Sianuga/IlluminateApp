@@ -270,6 +270,12 @@ export default function Dashboard() {
         </div>
       </div>
 
+      <div className="button-row">
+        <button className="button" onClick={handleReset}>
+          Reset
+        </button>
+      </div>
+
       {/* News Section */}
       <div className="section-title">News</div>
       <div className="news-container">
@@ -292,12 +298,6 @@ export default function Dashboard() {
       <div className="news-container"></div>
 
       {message && <div className="message">{message}</div>}
-
-      <div className="button-row">
-        <button className="button" onClick={handleReset}>
-          Reset
-        </button>
-      </div>
 
       {/* Updated Bottom Nav */}
       <div className="bottom-nav">
@@ -362,7 +362,7 @@ export default function Dashboard() {
           <span>Redeemed</span>
         </Link>
 
-        <Link href="/history" className="nav-item">
+        <Link href="/" className="nav-item">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path
               d="M12 6V12L16 14"
