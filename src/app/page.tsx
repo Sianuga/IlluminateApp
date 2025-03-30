@@ -39,6 +39,7 @@ export default function Dashboard() {
   const [timeUntilMidnight, setTimeUntilMidnight] = useState<string>("");
   const [showRedeemModal, setShowRedeemModal] = useState(false);
   const [redeemedBenefit, setRedeemedBenefit] = useState<Benefit | null>(null);
+  const [showStreakModal, setShowStreakModal] = useState(false);
 
   useEffect(() => {
     const lastDailyPrize = localStorage.getItem("lastDailyPrize");
@@ -94,6 +95,7 @@ export default function Dashboard() {
     const dailyDrop = Math.floor(Math.random() * 16) + 5;
     const fridayBonus = isFriday() ? 10 : 0;
     const totalBonus = basePoints + streakBonus + dailyDrop + fridayBonus;
+    setShowStreakModal(true);
 
     setPoints(points + totalBonus);
     setLastCheckIn(today);
@@ -392,6 +394,21 @@ export default function Dashboard() {
             <button
               className="modal-close-button"
               onClick={() => setShowRedeemModal(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showStreakModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>🔥 Streak Updated!</h3>
+            <p>Your current streak is now {dayStreak} days!</p>
+            <button
+              className="modal-close-button"
+              onClick={() => setShowStreakModal(false)}
             >
               Close
             </button>
