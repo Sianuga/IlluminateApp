@@ -558,7 +558,7 @@ export default function Dashboard() {
         <div className="modal-overlay">
           <div className="modal">
             <h3>🔥 Streak Updated!</h3>
-            <p>Your current streak is now {dayStreak} days!</p>
+            <p className="streak-now-modal">Your current streak is now {dayStreak} days!</p>
             <button
               className="modal-close-button"
               onClick={() => setShowStreakModal(false)}

@@ -73,3 +73,7 @@
 .modal-cancel:hover {
   background-color: #aaa;
 }
+
+.streak-now-modal {
+    margin-bottom: 15px;
+}
