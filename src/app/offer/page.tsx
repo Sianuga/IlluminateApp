@@ -24,7 +24,7 @@ export default function Store() {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   // Pagination state
-  const itemsPerPage = 8;
+  const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Fetch products from TheMealDB API on mount
