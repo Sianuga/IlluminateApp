@@ -309,7 +309,7 @@ export default function Dashboard() {
               <div className="benefit-header">
                 {b.cost === 1000 && (
                   <span role="img" aria-label="Hamburger" className="emoji">
-                    🍔
+                    <img src={b.image} alt="" />
                   </span>
                 )}
                 <div className="benefit-title">{b.title}</div>
@@ -510,7 +510,9 @@ export default function Dashboard() {
               >
                 Close
               </button>
-              <a className="modal-show-redeemed-button" href="/redeemed">Redeemed</a>
+              <a className="modal-show-redeemed-button" href="/redeemed">
+                Redeemed
+              </a>
             </div>
           </div>
         </div>

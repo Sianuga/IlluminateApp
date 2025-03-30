@@ -1,5 +1,7 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
+import hamburgerImage from "./assets/hamburger.jpeg";
+import coffeeImage from "./assets/coffee.jpg";
 
 export type Benefit = {
   id: number;
@@ -30,25 +32,26 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [lastCheckIn, setLastCheckIn] = useState<string | null>(null);
   const [benefits, setBenefits] = useState<Benefit[]>([
     {
-      id: 3,
-      title: "Hamburger",
-      cost: 1000,
-      redeemed: false,
-      image: "https://via.placeholder.com/120x80.png?text=Hamburger",
-    },
-    {
       id: 1,
-      title: "Mala Chicken McCrispy (2pc)",
+      title: "Burger",
       cost: 900,
       redeemed: false,
-      image: "https://via.placeholder.com/120x80.png?text=Mala+McCrispy",
+
+      image: "/hamburger.jpeg",
     },
     {
       id: 2,
-      title: "Chicken McNuggets (20pc)",
-      cost: 1800,
+      title: "Coffee",
+      cost: 750,
       redeemed: false,
-      image: "https://via.placeholder.com/120x80.png?text=McNuggets",
+      image: "/coffee.jpg",
+    },
+    {
+      id: 3,
+      title: "Sandwich",
+      cost: 1200,
+      redeemed: false,
+      image: "/sandwitch.jpg",
     },
   ]);
 

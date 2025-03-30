@@ -24,13 +24,15 @@ export default function RedeemedPage() {
   useEffect(() => {
     const savedBenefits = localStorage.getItem("benefits");
     if (savedBenefits) {
+      // Load benefits from localStorage
       const benefits = JSON.parse(savedBenefits) as Benefit[];
+      // Only show redeemed ones
       const redeemed = benefits.filter((b) => b.redeemed);
       setRedeemedBenefits(redeemed);
     }
   }, []);
 
-  // Calculate total pages and get only the redeemed items for the current page
+  // Calculate total pages and get only the redeemed items for this page
   const totalPages = Math.ceil(redeemedBenefits.length / itemsPerPage);
   const displayedRedeemed = redeemedBenefits.slice(
     (currentPage - 1) * itemsPerPage,
@@ -45,10 +47,12 @@ export default function RedeemedPage() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
+  // Open modal to show product code
   const openModal = (benefit: Benefit) => {
     setSelectedBenefit(benefit);
   };
 
+  // Close the code modal
   const closeModal = () => {
     setSelectedBenefit(null);
   };
@@ -80,6 +84,7 @@ export default function RedeemedPage() {
           </div>
         )}
 
+        {/* Pagination controls */}
         {redeemedBenefits.length > itemsPerPage && (
           <div className="pagination">
             <button onClick={handlePrevPage} disabled={currentPage === 1}>
@@ -98,11 +103,11 @@ export default function RedeemedPage() {
         )}
 
         <div className="navigation-link">
-          <a href="/">← Back to Dashboard</a>
+          <Link href="/">← Back to Dashboard</Link>
         </div>
       </div>
 
-      {/* Modal for displaying benefit code */}
+      {/* Modal for displaying the code & image */}
       {selectedBenefit && selectedBenefit.code && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
