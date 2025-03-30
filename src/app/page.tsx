@@ -30,9 +30,34 @@ export default function Dashboard() {
     setDayStreak,
     lastCheckIn,
     setLastCheckIn,
-    benefits,
-    setBenefits,
+    // ,
+    // setBenefits,
   } = useGame();
+
+  const [benefits, setBenefits] = useState<Benefit[]>([
+    {
+      id: 1,
+      title: "Tea/Coffee",
+      cost: 300,
+      redeemed: false,
+
+      image: "/hamburger.jpeg",
+    },
+    {
+      id: 2,
+      title: "Movie Tickets",
+      cost: 700,
+      redeemed: false,
+      image: "/coffee.jpg",
+    },
+    {
+      id: 3,
+      title: "Dinner Voucher",
+      cost: 4500,
+      redeemed: false,
+      image: "/sandwitch.jpg",
+    },
+  ]);
 
   const [message, setMessage] = useState<string>("");
   const [dailyPriceLocked, setDailyPriceLocked] = useState<boolean>(true);
@@ -311,7 +336,10 @@ export default function Dashboard() {
               <div className="benefit-header">
                 {b.cost === 1000 && (
                   <span role="img" aria-label="Hamburger" className="emoji">
-                    <img src={b.image} alt="" />
+                    <img
+                      src="https://media.istockphoto.com/id/682380852/photo/takeaway-coffee-cup-with-clipping-path.jpg?s=612x612&w=0&k=20&c=5J2XuihC3L58BqtPqfO8USOTGgouxuXO-452KqtFol8="
+                      alt=""
+                    />
                   </span>
                 )}
                 <div className="benefit-title">{b.title}</div>
@@ -351,7 +379,11 @@ export default function Dashboard() {
             <p className="streak-day">Today</p>
             <p>+100 pts</p>
             <button
-              className={lastCheckIn === todayString ? "streak-collected-button" : "streak-collect-button"}
+              className={
+                lastCheckIn === todayString
+                  ? "streak-collected-button"
+                  : "streak-collect-button"
+              }
               onClick={handleDailyPriceCheckIn}
               disabled={lastCheckIn === todayString}
             >

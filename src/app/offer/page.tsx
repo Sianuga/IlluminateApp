@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useGame, Benefit } from "@/lib/GameContext";
 import "./store.css";
@@ -14,9 +14,108 @@ function generateRandomCode() {
   return result;
 }
 
+// Hardcoded list of rewards based on your requirements
+const hardcodedRewards: Benefit[] = [
+  // Small Benefits (easily achievable)
+  {
+    id: 1,
+    title: "Free Coffee or Tea at a Local Cafe",
+    cost: 300,
+    redeemed: false,
+    image: "/images/free_coffee.jpg",
+  },
+  {
+    id: 2,
+    title: "Fresh Pastry or Doughnut",
+    cost: 300,
+    redeemed: false,
+    image: "/images/pastry.jpg",
+  },
+  {
+    id: 3,
+    title: "10-20% Discount at a Restaurant or Salad Bar",
+    cost: 350,
+    redeemed: false,
+    image: "/images/discount.jpg",
+  },
+  {
+    id: 4,
+    title: "Voucher for Smoothie or Freshly Squeezed Juice",
+    cost: 350,
+    redeemed: false,
+    image: "/images/smoothie.jpg",
+  },
+  // Medium Benefits
+  {
+    id: 5,
+    title: "Cinema Ticket for a Selected Movie",
+    cost: 700,
+    redeemed: false,
+    image: "/images/cinema.jpg",
+  },
+  {
+    id: 6,
+    title: "Lunch Voucher at a Nearby Restaurant",
+    cost: 700,
+    redeemed: false,
+    image: "/images/lunch.jpg",
+  },
+  {
+    id: 7,
+    title: "One-day Gym/Fitness Class Entry",
+    cost: 1000,
+    redeemed: false,
+    image: "/images/gym_day.jpg",
+  },
+  {
+    id: 8,
+    title: "Shopping Gift Card (e.g. Empik, Rossmann)",
+    cost: 1000,
+    redeemed: false,
+    image: "/images/giftcard.jpg",
+  },
+  {
+    id: 9,
+    title: "Voucher for Audiobook or Ebook",
+    cost: 700,
+    redeemed: false,
+    image: "/images/ebook.jpg",
+  },
+  // Large Benefits
+  {
+    id: 10,
+    title: "Monthly Gym/Fitness Club Membership",
+    cost: 3000,
+    redeemed: false,
+    image: "/images/gym_membership.jpg",
+  },
+  {
+    id: 11,
+    title: "Language Course or Development Workshop",
+    cost: 4000,
+    redeemed: false,
+    image: "/images/language_course.jpg",
+  },
+  {
+    id: 12,
+    title: "Dinner Voucher for Two at a Restaurant",
+    cost: 4500,
+    redeemed: false,
+    image: "/images/dinner.jpg",
+  },
+  {
+    id: 13,
+    title: "Concert or Cultural Event Tickets",
+    cost: 4500,
+    redeemed: false,
+    image: "/images/concert.jpg",
+  },
+];
+
 export default function Store() {
   const { points, setPoints, benefits, setBenefits } = useGame();
-  const [products, setProducts] = useState<Benefit[]>([]);
+  // Initialize products with the hardcoded rewards
+  const [products, setProducts] = useState<Benefit[]>(hardcodedRewards);
   const [message, setMessage] = useState("");
 
   // For confirmation modal (asking "Yes"/"No" before buying)
@@ -30,28 +129,6 @@ export default function Store() {
   // Pagination state
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Fetch products from TheMealDB API on mount
-  useEffect(() => {
-    fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.meals) {
-          const fetchedProducts: Benefit[] = data.meals.map((meal: any) => ({
-            id: parseInt(meal.idMeal),
-            title: meal.strMeal,
-            // Generate a random cost between 100 and 300 pts
-            cost: Math.floor(Math.random() * 200) + 100,
-            redeemed: false,
-            image: meal.strMealThumb,
-          }));
-          setProducts(fetchedProducts);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-      });
-  }, []);
 
   // Pagination calculations
   const totalPages = Math.ceil(products.length / itemsPerPage);

@@ -37,21 +37,21 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
       cost: 900,
       redeemed: false,
 
-      image: "/hamburger.jpeg",
+      image: "./hamburger.jpeg",
     },
     {
       id: 2,
       title: "Coffee",
       cost: 750,
       redeemed: false,
-      image: "/coffee.jpg",
+      image: "./coffee.jpg",
     },
     {
       id: 3,
       title: "Sandwich",
       cost: 1200,
       redeemed: false,
-      image: "/sandwitch.jpg",
+      image: "./sandwitch.jpg",
     },
   ]);
 
