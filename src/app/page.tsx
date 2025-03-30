@@ -179,7 +179,7 @@ export default function Dashboard() {
       <div className="section-title-container">
         <div className="section-title">On-site benefits</div>
         <Link href="/offer">
-          <div className="section-store-route">Full benefit offer</div>
+          <div className="section-store-route">Go to the shop</div>
         </Link>
       </div>
       <div className="benefits-container">
@@ -195,7 +195,7 @@ export default function Dashboard() {
           </div>
           {dailyPriceLocked ? (
             <>
-              <p>Daily Prize</p>
+              <p className="daily-prize-label">Daily Prize</p>
               <Link href="/clicker" className="nav-item">
                 <button
                   onClick={handleDailyPriceCheckIn}
@@ -207,7 +207,7 @@ export default function Dashboard() {
             </>
           ) : (
             <>
-              <p>Daily prize</p>
+              <p className="daily-prize-label">Daily prize</p>
               <button
                 className="benefit-button"
                 onClick={handleDailyPriceClick}
@@ -255,11 +255,17 @@ export default function Dashboard() {
         </div>
         <div className="daily-streak-container">
           <div className="streak-card">
-            <p>Day {dayStreak - 1}</p>
+            <p className="streak-day">Day {dayStreak - 1}</p>
             <p>+75 pts</p>
+            <button
+              className="streak-collected-button"
+              onClick={handleDailyPriceCheckIn}
+            >
+              ✔️ Collected
+            </button>
           </div>
           <div className="streak-card">
-            <p>Today</p>
+            <p className="streak-day">Today</p>
             <p>+100 pts</p>
             <button
               className="streak-collect-button"
@@ -269,7 +275,7 @@ export default function Dashboard() {
             </button>
           </div>
           <div className="streak-card">
-            <p>Day {dayStreak + 1}</p>
+            <p className="streak-day">Day {dayStreak + 1}</p>
             <p>+125 pts</p>
           </div>
         </div>

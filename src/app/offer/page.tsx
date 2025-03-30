@@ -118,7 +118,7 @@ export default function Store() {
           </Link>
           <div className="points-display">{points} pts</div>
         </div>
-        <h1>Office Café Store</h1>
+        <h1>Points store</h1>
         <p>Redeem your points for tasty office treats!</p>
       </header>
 

@@ -15,11 +15,14 @@ type Particle = {
   dy: number;
 };
 
-const ParticleEffect: React.FC = () => {
-  // Create 20 particles with random direction and distance
-  const particles: Particle[] = Array.from({ length: 20 }, (_, i) => {
+type ParticleEffectProps = {
+  type?: "click" | "fireworks";
+};
+
+const ParticleEffect: React.FC<ParticleEffectProps> = ({ type = "click" }) => {
+  const particles: Particle[] = Array.from({ length: type === "click" ? 20 : 200 }, (_, i) => {
     const angle = Math.random() * 2 * Math.PI;
-    const distance = randomInt(50, 150);
+    const distance = type === "click" ? randomInt(50, 150) : randomInt(100, 300);
     return {
       id: i,
       dx: Math.cos(angle) * distance,
@@ -28,13 +31,17 @@ const ParticleEffect: React.FC = () => {
   });
 
   return (
-    <div className="particle-container">
+    <div className={`particle-container ${type}-particles`}>
       {particles.map((p) => (
         <div
           key={p.id}
-          className="particle"
+          className={`particle ${type}-particle`}
           style={
-            { "--dx": `${p.dx}px`, "--dy": `${p.dy}px` } as React.CSSProperties
+            {
+              "--dx": `${p.dx}px`,
+              "--dy": `${p.dy}px`,
+              "--hue": randomInt(0, 360)
+            } as React.CSSProperties
           }
         />
       ))}
@@ -118,7 +125,9 @@ const ClickerPage: React.FC = () => {
       </div>
       {isComplete && (
         <div className="overlay">
+          <ParticleEffect type="fireworks" />
           <div className="overlay-message">
+            <div className="bonus-text">For visiting office in-person today you receive:</div>
             {message}
             <button
               className="clicker-button overlay-button"

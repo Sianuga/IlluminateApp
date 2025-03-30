@@ -38,7 +38,7 @@ body {
   align-items: flex-start;
   background-color: #ececec; /* White background */
   padding: 1rem;
-  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 5px;
 }
 
 .top-bar-left {
@@ -189,10 +189,9 @@ body {
 }
 
 .streak-card {
-  min-width: 100px;
   background-color: #bc142e; /* Match benefits color for consistency */
   border-radius: 8px;
-  padding: 0.6rem;
+  padding: 1rem;
   text-align: center;
   color: #ececec; /* White text on red */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -200,16 +199,27 @@ body {
 
 .streak-card p {
   font-size: 0.8rem;
-  margin-bottom: 0.3rem;
-  font-weight: 500;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .streak-collect-button {
   background-color: #ececec;
   color: #bc142e;
   border: none;
-  border-radius: 4px;
-  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.streak-collected-button {
+  background-color: #bc142e;
+  color: #ececec;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 1.2rem;
   font-size: 0.75rem;
   cursor: pointer;
   font-weight: 600;
@@ -516,4 +526,18 @@ body {
   font-size: 0.9rem;
   line-height: 1.4;
   color: #444;
+}
+
+.daily-price-card {
+    width: 200px;
+}
+
+.streak-day {
+    font-size: 1rem !important;
+    margin-bottom: 0.8rem !important;
+}
+
+.daily-prize-label {
+    margin-top: 8px;
+    margin-bottom: 12px;
 }

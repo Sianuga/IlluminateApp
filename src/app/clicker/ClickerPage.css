@@ -103,7 +103,7 @@ body {
 }
 
 .overlay-button {
-    margin-top: 2rem;
+    margin-top: 16rem;
     width: 80%;
     padding: 1.5rem;
 }
@@ -184,10 +184,11 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(236, 236, 236, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .overlay-message {
@@ -195,4 +196,74 @@ body {
   font-weight: 700;
   color: #BC142E;
   text-align: center;
+  z-index: 2;
+}
+
+.overlay-message .bonus-text {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  color: #232323;
+  padding: 10px;
+}
+
+/* Fireworks particles */
+.fireworks-particles {
+  z-index: 1;
+}
+
+.fireworks-particle {
+  width: 4px;
+  height: 4px;
+  background-color: hsl(var(--hue), 100%, 50%);
+  animation: fireworksFly 1.5s ease-out forwards;
+}
+
+@keyframes fireworksFly {
+  from {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+}
+
+/* Create multiple fireworks bursts using pseudo-elements */
+.fireworks-particles::before,
+.fireworks-particles::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: red;
+  border-radius: 50%;
+  animation:
+    fireworksFly 1.5s ease-out forwards,
+    pulse 0.5s ease-out;
+}
+
+@keyframes pulse {
+  from { transform: scale(0); }
+  to { transform: scale(5); opacity: 0; }
+}
+
+.fireworks-particles::before {
+  left: 30%;
+  animation-delay: 0.2s;
+}
+
+.fireworks-particles::after {
+  left: 70%;
+  animation-delay: 0.5s;
+}
+
+.fireworks-particle:nth-child(odd) {
+  width: 6px;
+  height: 6px;
+}
+
+.fireworks-particle:nth-child(3n) {
+  animation-duration: 2s;
 }
