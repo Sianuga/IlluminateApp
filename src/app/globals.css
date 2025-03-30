@@ -105,11 +105,9 @@ body {
 /* BENEFIT TILE: Fixed size */
 .benefit-card {
   flex: 0 0 auto; /* Prevents shrinking or growing */
-  width: 120px; /* Fixed width */
-  height: 170px; /* Fixed height */
   background-color: #bc142e; /* Bold red background */
   border-radius: 8px;
-  padding: 0.8rem;
+  padding: 1.1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -117,7 +115,6 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
   text-wrap: wrap;
-  padding: 10px;
   color: #fff; /* White text on red */
 }
 
@@ -132,7 +129,8 @@ body {
 
 .benefit-title {
   font-weight: 700;
-  margin-bottom: 0.3rem;
+  margin-top: 0.8rem;
+  margin-bottom: 1.3rem;
   font-size: 0.9rem;
 }
 
@@ -146,7 +144,7 @@ body {
   color: #bc142e;
   border: none;
   border-radius: 6px;
-  padding: 0.4rem 0.6rem;
+  padding: 0.8rem 1.2rem;
   font-size: 0.75rem;
   cursor: pointer;
   font-weight: 600;
@@ -478,6 +476,7 @@ body {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  margin-bottom: 2rem;
 }
 
 .news-box {

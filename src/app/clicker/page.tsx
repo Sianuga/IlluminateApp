@@ -82,17 +82,17 @@ const ClickerPage: React.FC = () => {
       setPoints(totalPoints);
       setProgress(100);
       setMessage(
-        `Clicker complete! You earned ${bonus} bonus points. Total: ${totalPoints} pts.`
+        `+ ${bonus} points!`
       );
       setIsComplete(true);
-      // After 3 seconds, go back to the root route
-      setTimeout(() => {
-        router.push("/");
-      }, 3000);
     } else {
       setProgress(newProgress);
       setMessage(`+${increment}% progress!`);
     }
+  };
+
+  const handleReturn = () => {
+    router.push("/");
   };
 
   return (
@@ -101,12 +101,6 @@ const ClickerPage: React.FC = () => {
     >
       {animate && <ParticleEffect />}
       <div className="clicker-content">
-        <div className="clicker-top-bar">
-          <div className="clicker-top-bar-left">
-            <h1>Clicker</h1>
-          </div>
-          <div className="clicker-top-bar-right">{points} pts</div>
-        </div>
         <div className="clicker-card">
           <div className="clicker-progress">{progress}%</div>
           <p className="clicker-instructions">
@@ -126,8 +120,12 @@ const ClickerPage: React.FC = () => {
         <div className="overlay">
           <div className="overlay-message">
             {message}
-            <br />
-            Redirecting...
+            <button
+              className="clicker-button overlay-button"
+              onClick={handleReturn}
+            >
+              Return to Main Page
+            </button>
           </div>
         </div>
       )}
