@@ -72,6 +72,17 @@ body {
   margin: 1rem 1rem 0.5rem;
   color: #000; /* Darker title color */
 }
+.section-store-route {
+  font-size: 1rem;
+  font-weight: 800;
+  margin: 1rem 1rem 0.5rem;
+  text-decoration: underline;
+  color: #000;
+  transition: linear 0.3s;
+}
+.section-store-route:hover {
+  color: rgb(134, 44, 62);
+}
 
 .emoji {
   font-size: 3rem;
@@ -85,6 +96,10 @@ body {
   overflow-x: auto; /* Enables horizontal scrolling */
   white-space: nowrap; /* Prevents wrapping of tiles */
   padding-bottom: 0.5rem; /* Optional spacing at bottom */
+}
+.section-title-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 /* BENEFIT TILE: Fixed size */

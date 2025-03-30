@@ -1,0 +1,135 @@
+/* Main container occupies full width */
+.store-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ececec;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  color: #333;
+}
+
+/* Store header */
+.store-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.back-to-dashboard {
+  text-decoration: none;
+  color: #bc142e;
+  font-weight: 600;
+}
+.points-display {
+  font-weight: 700;
+  color: #000;
+}
+
+.store-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+.store-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Products grid: responsive grid that spans full width and scrolls vertically */
+.products-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  margin-bottom: 1rem;
+}
+
+/* Product tile: fixed size and text clamped */
+.product-tile {
+  background-color: #bc142e;
+  border-radius: 8px;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  height: 220px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.product-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+.product-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+.product-cost {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.product-buy-button {
+  background-color: #ececec;
+  color: #bc142e;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+.product-buy-button:hover {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+/* Pagination controls */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.pagination button {
+  background-color: #bc142e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.pagination span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Store message */
+.store-message {
+  margin: 1rem auto;
+  text-align: center;
+  font-size: 1rem;
+  color: #000;
+}

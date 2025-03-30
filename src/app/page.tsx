@@ -176,8 +176,12 @@ export default function Dashboard() {
         </div>
         <div className="top-bar-right">{points} pts</div>
       </div>
-
-      <div className="section-title">On-site benefits</div>
+      <div className="section-title-container">
+        <div className="section-title">On-site benefits</div>
+        <Link href="/offer">
+          <div className="section-store-route">Full benefit offer</div>
+        </Link>
+      </div>
       <div className="benefits-container">
         <div
           className={`benefit-card daily-price-card ${
@@ -240,7 +244,6 @@ export default function Dashboard() {
             </div>
           ))}
       </div>
-
       <div className="streak-section">
         <div className="streak-highlight">
           <div className="streak-text">
@@ -271,13 +274,11 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-
       <div className="button-row">
         <button className="button" onClick={handleReset}>
           Reset
         </button>
       </div>
-
       {/* News Section */}
       <div className="section-title">News</div>
       <div className="news-container">
@@ -298,9 +299,7 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="news-container"></div>
-
       {message && <div className="message">{message}</div>}
-
       {/* Updated Bottom Nav */}
       <div className="bottom-nav">
         <Link href="/" className="nav-item">
@@ -384,7 +383,6 @@ export default function Dashboard() {
           <span>History</span>
         </Link>
       </div>
-
       {showRedeemModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -400,7 +398,6 @@ export default function Dashboard() {
           </div>
         </div>
       )}
-
       {showStreakModal && (
         <div className="modal-overlay">
           <div className="modal">
