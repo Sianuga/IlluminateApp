@@ -7,7 +7,7 @@ A gamified employee engagement system with daily check-ins, point rewards, and b
 🎯 **Core Functionality**
 - Daily check-in system with progressive rewards
 - Streak maintenance with bonus multipliers
-- Randomized daily prizes (12,220-12,230 points)
+- Randomized daily prizes (1-50 points)
 - Friday bonus points
 - Benefit redemption system with unique codes
 - News feed integration
