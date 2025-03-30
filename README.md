@@ -58,6 +58,7 @@ npm run dev
 
 ## Architecture
 
+```
 /src
 ├── /app
 │   └── page.tsx        # Main dashboard
@@ -67,6 +68,7 @@ npm run dev
 │   └── globals.css     # Global styles
 └── /types
     └── Benefit.ts      # Type definitions
+```
 
 ### License
 
