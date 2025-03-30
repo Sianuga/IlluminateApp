@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Office Engagement Platform
 
-## Getting Started
+A gamified employee engagement system with daily check-ins, point rewards, and benefit redemption features.
 
-First, run the development server:
+## Features
+
+🎯 **Core Functionality**
+- Daily check-in system with progressive rewards
+- Streak maintenance with bonus multipliers
+- Randomized daily prizes (12,220-12,230 points)
+- Friday bonus points
+- Benefit redemption system with unique codes
+- News feed integration
+
+📱 **Key Components**
+- Interactive dashboard with points display
+- Hamburger menu for future navigation
+- Three-panel bottom navigation (Dashboard, Redeemed, History)
+- Responsive design optimized for mobile
+- Animated modals for user feedback
+- Local storage persistence
+
+🔄 **Daily System Mechanics**
+- Base points: 10/day
+- Streak bonus: 5 points/day multiplier
+- Daily drop: 5-20 random points
+- Friday bonus: +10 points
+- Daily prize lock/unlock mechanism
+- Midnight reset timer
+
+## Installation
+
+1. Clone repository:
+```bash
+git clone https://github.com/Sianuga/IlluminateApp
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Frontend: Next.js 15 (App Router)
+- State Management: React Context API
+- Styling: CSS Modules
+- Type Safety: TypeScript
+- Persistence: Browser LocalStorage
+- Icons: SVG illustrations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture
 
-## Learn More
+/src
+├── /app
+│   └── page.tsx        # Main dashboard
+├── /lib
+│   └── GameContext.ts  # State management
+├── /styles
+│   └── globals.css     # Global styles
+└── /types
+    └── Benefit.ts      # Type definitions
 
-To learn more about Next.js, take a look at the following resources:
+### License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License - see LICENSE for details.
