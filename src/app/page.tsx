@@ -130,7 +130,7 @@ export default function Dashboard() {
       setMessage("Daily prize already collected. Please wait until midnight.");
       return;
     }
-    const bonus = Math.floor(Math.random() * 11) + 12220;
+    const bonus = Math.floor(Math.random() * 11) + 1220;
     setPoints(points + bonus);
     setMessage(`Daily prize activated! +${bonus} points.`);
     setDailyPrizeCollected(true);
