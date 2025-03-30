@@ -366,7 +366,7 @@ export default function Dashboard() {
         </div>
         <div className="daily-streak-container">
           <div className="streak-card">
-            <p className="streak-day">Day {dayStreak - 1}</p>
+            <p className="streak-day">Day 1</p>
             <p>+75 pts</p>
             <button
               className="streak-collected-button"
@@ -391,7 +391,7 @@ export default function Dashboard() {
             </button>
           </div>
           <div className="streak-card">
-            <p className="streak-day">Day {dayStreak + 1}</p>
+            <p className="streak-day">Day 3</p>
             <p>+125 pts</p>
           </div>
         </div>
