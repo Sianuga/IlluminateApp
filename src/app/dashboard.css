@@ -73,20 +73,3 @@
 .modal-cancel:hover {
   background-color: #aaa;
 }
-
-/* “Close” button in success/streak modal */
-.modal-close-button {
-  background: #bc142e;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: background-color 0.2s ease;
-}
-.modal-close-button:hover {
-  background: #9a1026;
-}

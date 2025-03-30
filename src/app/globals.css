@@ -113,6 +113,7 @@ body {
   white-space: nowrap; /* Prevents wrapping of tiles */
   padding-bottom: 0.5rem; /* Optional spacing at bottom */
 }
+
 .section-title-container {
   display: flex;
   justify-content: space-between;
@@ -466,21 +467,44 @@ body {
   font-size: 1.5rem;
 }
 
+.modal-button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  align-items: center; /* Vertical alignment */
+  width: 100%; /* Ensure full width for equal spacing */
+}
+
+.modal-close-button,
+.modal-show-redeemed-button {
+  /* Shared properties */
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  line-height: 1.2; /* Ensure consistent text alignment */
+  flex: 1; /* Make buttons take equal width */
+}
+
 .modal-close-button {
   background: #bc142e;
   color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 600;
-  margin-top: 1.5rem;
-  transition: background 0.2s ease;
+}
+
+.modal-show-redeemed-button {
+  background: #1a8c3a;
+  color: white;
 }
 
 .modal-close-button:hover {
-  background: #9a1026;
+  background: #9d1025;
+}
+
+.modal-show-redeemed-button:hover {
+  background: #136729;
 }
 
 .code-area {
