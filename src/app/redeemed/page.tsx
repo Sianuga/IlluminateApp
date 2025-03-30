@@ -35,22 +35,23 @@ export default function RedeemedPage() {
   return (
     <main className="main-container">
       <div className="redeemed-container">
-        <div className="redeemed-header">Redeemed Items</div>
+        <div className="section-title">Redeemed Items</div>
         {redeemedBenefits.length === 0 ? (
-          <p>No redeemed items yet.</p>
+          <p className="empty-message">No redeemed items yet.</p>
         ) : (
-          <div className="redeemed-grid">
+          <div className="benefits-container">
             {redeemedBenefits.map((b) => (
-              <div key={b.id} className="redeemed-item">
-                <img
-                  src={b.image}
-                  alt={b.title}
-                  className="redeemed-item-img"
-                />
-                <div className="redeemed-item-title">{b.title}</div>
-                <div className="redeemed-item-cost">Cost: {b.cost} pts</div>
+              <div key={b.id} className="benefit-card">
+                <div className="benefit-header">
+                  {b.cost === 1000 && (
+                    <span role="img" aria-label="Hamburger" className="emoji">
+                      🍔
+                    </span>
+                  )}
+                  <div className="benefit-title">{b.title}</div>
+                </div>
                 <button
-                  className="redeemed-item-button"
+                  className="benefit-button"
                   onClick={() => toggleCode(b.id)}
                 >
                   {showCode[b.id] ? "Hide Code" : "View Code"}
@@ -64,8 +65,8 @@ export default function RedeemedPage() {
             ))}
           </div>
         )}
-        <div style={{ marginTop: "1rem" }}>
-          <Link href="/" style={{ color: "#c40000", textDecoration: "none" }}>
+        <div className="navigation-link">
+          <Link href="/">
             &larr; Back to Dashboard
           </Link>
         </div>
