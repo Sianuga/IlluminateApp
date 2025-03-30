@@ -268,18 +268,21 @@ export default function Store() {
       )}
 
       {/* Success Modal: show code right away */}
-      {showRedeemModal && redeemedProduct && (
+      {showRedeemModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>Successfully redeemed {redeemedProduct.title}!</h3>
+            <h3>Successfully redeemed {redeemedProduct?.title}!</h3>
             <p>Your unique code:</p>
-            <div className="code-area">{redeemedProduct.code}</div>
-            <button
-              className="modal-close-button"
-              onClick={() => setShowRedeemModal(false)}
-            >
-              Close
-            </button>
+            <div className="code-area">{redeemedProduct?.code}</div>
+            <div className="modal-button-group">
+              <button
+                className="modal-close-button"
+                onClick={() => setShowRedeemModal(false)}
+              >
+                Close
+              </button>
+              <a className="modal-show-redeemed-button" href="/redeemed">Redeemed</a>
+            </div>
           </div>
         </div>
       )}
