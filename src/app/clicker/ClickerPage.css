@@ -43,13 +43,13 @@ body {
 .clicker-top-bar-left h1 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #d32f2f;
+  color: #BC142E;
 }
 
 .clicker-top-bar-right {
   font-size: 1rem;
   font-weight: 700;
-  color: #d32f2f;
+  color: #BC142E;
 }
 
 /* Card styling */
@@ -68,7 +68,7 @@ body {
 .clicker-progress {
   font-size: 3rem;
   font-weight: 700;
-  color: #d32f2f;
+  color: #BC142E;
   margin-bottom: 1rem;
 }
 
@@ -83,7 +83,7 @@ body {
 /* Button styling */
 .clicker-button {
   width: 100%;
-  background-color: #d32f2f;
+  background-color: #BC142E;
   color: #fff;
   font-size: 0.95rem;
   padding: 2rem;
@@ -112,7 +112,7 @@ body {
 .clicker-message {
   margin-top: 1rem;
   font-size: 0.9rem;
-  color: #d32f2f;
+  color: #BC142E;
   font-weight: 600;
 }
 
@@ -159,7 +159,7 @@ body {
   left: 50%;
   width: 8px;
   height: 8px;
-  background-color: #d32f2f;
+  background-color: #BC142E;
   border-radius: 50%;
   opacity: 1;
   animation: particleFly 1s ease-out forwards;
@@ -193,6 +193,6 @@ body {
 .overlay-message {
   font-size: 3rem;
   font-weight: 700;
-  color: #d32f2f;
+  color: #BC142E;
   text-align: center;
 }
