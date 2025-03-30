@@ -98,7 +98,7 @@ export default function RedeemedPage() {
         )}
 
         <div className="navigation-link">
-          <Link href="/">← Back to Dashboard</Link>
+          <a href="/">← Back to Dashboard</a>
         </div>
       </div>
 

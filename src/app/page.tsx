@@ -312,11 +312,13 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      {/*
       <div className="button-row">
         <button className="button" onClick={handleReset}>
           Reset
         </button>
       </div>
+      */}
       {/* News Section */}
       <div className="section-title">News</div>
       <div className="news-container">
