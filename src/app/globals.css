@@ -44,6 +44,21 @@ body {
 .top-bar-left {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.hamburger-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: inherit; /* Match text color */
+}
+
+.hamburger-menu svg {
+  display: block;
 }
 
 .top-bar-left h1 {
