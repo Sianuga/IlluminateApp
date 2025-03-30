@@ -19,6 +19,10 @@ export default function Store() {
   const [products, setProducts] = useState<Benefit[]>([]);
   const [message, setMessage] = useState("");
 
+  // Modal state for confirmation before buying
+  const [selectedProduct, setSelectedProduct] = useState<Benefit | null>(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
   // Pagination state
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,19 +56,13 @@ export default function Store() {
     currentPage * itemsPerPage
   );
 
-  const handleBuy = (product: Benefit) => {
-    if (points < product.cost) {
-      setMessage("Not enough points to buy this product!");
-      return;
-    }
-    // Create a redeemed product with a generated code
+  // Actual buy function – call this after confirmation
+  const confirmBuy = (product: Benefit) => {
     const code = generateRandomCode();
     const updatedProduct = { ...product, redeemed: true, code };
 
-    // Deduct points and update redeemed list in GameContext
     setPoints(points - product.cost);
     setBenefits((prevBenefits) => {
-      // Update if already exists, or add new if not present
       const exists = prevBenefits.find((b) => b.id === product.id);
       if (exists) {
         return prevBenefits.map((b) =>
@@ -79,6 +77,28 @@ export default function Store() {
     setProducts((prev) =>
       prev.map((p) => (p.id === product.id ? { ...p, redeemed: true } : p))
     );
+  };
+
+  const handleBuyClick = (product: Benefit) => {
+    if (points < product.cost) {
+      setMessage("Not enough points to buy this product!");
+      return;
+    }
+    setSelectedProduct(product);
+    setShowConfirmationModal(true);
+  };
+
+  const handleConfirmBuy = () => {
+    if (selectedProduct) {
+      confirmBuy(selectedProduct);
+    }
+    setShowConfirmationModal(false);
+    setSelectedProduct(null);
+  };
+
+  const handleCancelBuy = () => {
+    setShowConfirmationModal(false);
+    setSelectedProduct(null);
   };
 
   const handleNextPage = () => {
@@ -116,7 +136,7 @@ export default function Store() {
             <div className="product-cost">{product.cost} pts</div>
             <button
               className="product-buy-button"
-              onClick={() => handleBuy(product)}
+              onClick={() => handleBuyClick(product)}
               disabled={product.redeemed}
             >
               {product.redeemed ? "Redeemed" : "Buy"}
@@ -138,6 +158,27 @@ export default function Store() {
       </div>
 
       {message && <div className="store-message">{message}</div>}
+
+      {/* Confirmation Modal */}
+      {showConfirmationModal && selectedProduct && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Confirm Purchase</h3>
+            <p>
+              Buy <strong>{selectedProduct.title}</strong> for{" "}
+              <strong>{selectedProduct.cost} pts</strong>?
+            </p>
+            <div className="modal-buttons">
+              <button className="modal-confirm" onClick={handleConfirmBuy}>
+                Yes
+              </button>
+              <button className="modal-cancel" onClick={handleCancelBuy}>
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

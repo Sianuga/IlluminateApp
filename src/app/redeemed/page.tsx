@@ -42,13 +42,14 @@ export default function RedeemedPage() {
           <div className="benefits-container">
             {redeemedBenefits.map((b) => (
               <div key={b.id} className="benefit-card">
+                <img
+                  src={b.image}
+                  alt={b.title}
+                  className="redeemed-item-img"
+                />
                 <div className="benefit-header">
-                  {b.cost === 1000 && (
-                    <span role="img" aria-label="Hamburger" className="emoji">
-                      🍔
-                    </span>
-                  )}
                   <div className="benefit-title">{b.title}</div>
+                  <div className="benefit-cost">{b.cost} pts</div>
                 </div>
                 <button
                   className="benefit-button"
@@ -66,9 +67,7 @@ export default function RedeemedPage() {
           </div>
         )}
         <div className="navigation-link">
-          <Link href="/">
-            &larr; Back to Dashboard
-          </Link>
+          <Link href="/">← Back to Dashboard</Link>
         </div>
       </div>
     </main>
