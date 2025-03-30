@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useGame, Benefit } from "@/lib/GameContext";
+import "./dashboard.css"; // Import your CSS here
 
 // Helper functions
 const getTodayString = (): string => new Date().toISOString().split("T")[0];
@@ -11,6 +12,7 @@ const getYesterdayString = (): string => {
   return d.toISOString().split("T")[0];
 };
 const isFriday = (): boolean => new Date().getDay() === 5;
+
 function generateRandomCode() {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
@@ -37,9 +39,15 @@ export default function Dashboard() {
   const [dailyPrizeCollected, setDailyPrizeCollected] =
     useState<boolean>(false);
   const [timeUntilMidnight, setTimeUntilMidnight] = useState<string>("");
+  const [showStreakModal, setShowStreakModal] = useState(false);
+
+  // For the success modal after redemption
   const [showRedeemModal, setShowRedeemModal] = useState(false);
   const [redeemedBenefit, setRedeemedBenefit] = useState<Benefit | null>(null);
-  const [showStreakModal, setShowStreakModal] = useState(false);
+
+  // For the confirmation modal before redeeming
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedBenefit, setSelectedBenefit] = useState<Benefit | null>(null);
 
   useEffect(() => {
     const lastDailyPrize = localStorage.getItem("lastDailyPrize");
@@ -79,9 +87,11 @@ export default function Dashboard() {
     setDailyPriceLocked(lastCheckIn !== today);
   }, [lastCheckIn]);
 
+  /**
+   * Daily check-in logic
+   */
   const handleCheckIn = () => {
     const today = getTodayString();
-
     if (lastCheckIn === today) {
       setMessage("You have already checked in today!");
       return false;
@@ -108,6 +118,9 @@ export default function Dashboard() {
     return true;
   };
 
+  /**
+   * Handle daily prize
+   */
   const handleDailyPriceClick = () => {
     if (dailyPriceLocked) {
       setMessage("You need to check in before receiving the reward!");
@@ -131,7 +144,11 @@ export default function Dashboard() {
     }
   };
 
-  const handleRedeemBenefit = (id: number) => {
+  /**
+   * Called when user clicks "Redeem" for a benefit
+   * -> Open a confirmation modal first
+   */
+  const openConfirmModal = (id: number) => {
     const benefit = benefits.find((b) => b.id === id);
     if (!benefit) return;
     if (benefit.redeemed) {
@@ -142,15 +159,44 @@ export default function Dashboard() {
       setMessage(`Not enough points for "${benefit.title}"!`);
       return;
     }
-    const code = generateRandomCode();
-    const updatedBenefit = { ...benefit, redeemed: true, code };
-
-    setPoints(points - benefit.cost);
-    setBenefits(benefits.map((b) => (b.id === id ? updatedBenefit : b)));
-    setRedeemedBenefit(updatedBenefit);
-    setShowRedeemModal(true);
+    // Store in state to confirm
+    setSelectedBenefit(benefit);
+    setShowConfirmModal(true);
   };
 
+  /**
+   * If user confirms, we redeem the benefit
+   */
+  const handleConfirmRedeem = () => {
+    if (!selectedBenefit) return;
+    const code = generateRandomCode();
+    const updatedBenefit = { ...selectedBenefit, redeemed: true, code };
+
+    setPoints(points - selectedBenefit.cost);
+    setBenefits(
+      benefits.map((b) => (b.id === selectedBenefit.id ? updatedBenefit : b))
+    );
+
+    // Show success modal
+    setRedeemedBenefit(updatedBenefit);
+    setShowRedeemModal(true);
+
+    // Hide confirmation
+    setShowConfirmModal(false);
+    setSelectedBenefit(null);
+  };
+
+  /**
+   * If user cancels, just close confirmation
+   */
+  const handleCancelRedeem = () => {
+    setShowConfirmModal(false);
+    setSelectedBenefit(null);
+  };
+
+  /**
+   * Monthly reset (for debugging)
+   */
   const handleReset = () => {
     setPoints(0);
     setDayStreak(0);
@@ -208,12 +254,14 @@ export default function Dashboard() {
         </div>
         <div className="top-bar-right">{points} pts</div>
       </div>
+
       <div className="section-title-container">
         <div className="section-title">On-site benefits</div>
         <Link href="/offer">
           <div className="section-store-route">Go to the shop</div>
         </Link>
       </div>
+
       <div className="benefits-container">
         <div
           className={`benefit-card daily-price-card ${
@@ -269,13 +317,14 @@ export default function Dashboard() {
               <div className="benefit-cost">{b.cost} pts</div>
               <button
                 className="benefit-button"
-                onClick={() => handleRedeemBenefit(b.id)}
+                onClick={() => openConfirmModal(b.id)}
               >
                 Redeem
               </button>
             </div>
           ))}
       </div>
+
       <div className="streak-section">
         <div className="streak-highlight">
           <div className="streak-text">
@@ -312,34 +361,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      {/*
-      <div className="button-row">
-        <button className="button" onClick={handleReset}>
-          Reset
-        </button>
-      </div>
-      */}
-      {/* News Section */}
-      <div className="section-title">News</div>
-      <div className="news-container">
-        <div className="news-box">
-          <img
-            src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-            alt="Office event"
-            className="news-image"
-          />
-          <div className="news-content">
-            <h3 className="news-title">Summer Team Building Event</h3>
-            <p className="news-date">2023/08/28, 16:27</p>
-            <p className="news-excerpt">
-              Join us for an exciting afternoon of team activities and
-              networking. Free snacks and drinks provided for all participants!
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="news-container"></div>
-      {message && <div className="message">{message}</div>}
+
       {/* Updated Bottom Nav */}
       <div className="bottom-nav">
         <Link href="/" className="nav-item">
@@ -423,6 +445,30 @@ export default function Dashboard() {
           <span>History</span>
         </Link>
       </div>
+
+      {/* Confirmation Modal for benefit redemption */}
+      {showConfirmModal && selectedBenefit && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Confirm Redemption</h3>
+            <p>
+              Are you sure you want to redeem "
+              <strong>{selectedBenefit.title}</strong>" for{" "}
+              <strong>{selectedBenefit.cost} pts</strong>?
+            </p>
+            <div className="modal-buttons">
+              <button className="modal-confirm" onClick={handleConfirmRedeem}>
+                Yes
+              </button>
+              <button className="modal-cancel" onClick={handleCancelRedeem}>
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal after redeem */}
       {showRedeemModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -438,6 +484,8 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      {/* Streak Updated Modal */}
       {showStreakModal && (
         <div className="modal-overlay">
           <div className="modal">

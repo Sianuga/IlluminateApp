@@ -1,0 +1,92 @@
+/* Confirmation Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal container */
+.modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal heading */
+.modal h3 {
+  font-size: 1.5rem;
+  color: #bc142e;
+  margin-bottom: 1rem;
+}
+
+/* Code area in success modal */
+.code-area {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin: 1rem 0;
+  border: 2px dashed #bc142e;
+}
+
+/* Button row in confirmation modal */
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Confirm/Cancel buttons match store style */
+.modal-confirm,
+.modal-cancel {
+  background-color: #bc142e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.modal-cancel {
+  background-color: #ccc;
+  color: #333;
+}
+.modal-confirm:hover {
+  background-color: #9a1026;
+}
+.modal-cancel:hover {
+  background-color: #aaa;
+}
+
+/* “Close” button in success/streak modal */
+.modal-close-button {
+  background: #bc142e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s ease;
+}
+.modal-close-button:hover {
+  background: #9a1026;
+}

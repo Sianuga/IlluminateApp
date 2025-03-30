@@ -19,9 +19,13 @@ export default function Store() {
   const [products, setProducts] = useState<Benefit[]>([]);
   const [message, setMessage] = useState("");
 
-  // Modal state for confirmation before buying
+  // For confirmation modal (asking "Yes"/"No" before buying)
   const [selectedProduct, setSelectedProduct] = useState<Benefit | null>(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  // For success modal (show code right after buying)
+  const [showRedeemModal, setShowRedeemModal] = useState(false);
+  const [redeemedProduct, setRedeemedProduct] = useState<Benefit | null>(null);
 
   // Pagination state
   const itemsPerPage = 9;
@@ -56,46 +60,52 @@ export default function Store() {
     currentPage * itemsPerPage
   );
 
-  // Actual buy function – call this after confirmation
-  const confirmBuy = (product: Benefit) => {
-    const code = generateRandomCode();
-    const updatedProduct = { ...product, redeemed: true, code };
-
-    setPoints(points - product.cost);
-    setBenefits((prevBenefits) => {
-      const exists = prevBenefits.find((b) => b.id === product.id);
-      if (exists) {
-        return prevBenefits.map((b) =>
-          b.id === product.id ? updatedProduct : b
-        );
-      }
-      return [...prevBenefits, updatedProduct];
-    });
-    setMessage(`You bought "${product.title}" for ${product.cost} pts!`);
-
-    // Update local products state to disable the buy button for this product
-    setProducts((prev) =>
-      prev.map((p) => (p.id === product.id ? { ...p, redeemed: true } : p))
-    );
-  };
-
+  // Called when user clicks "Buy" on a product
   const handleBuyClick = (product: Benefit) => {
     if (points < product.cost) {
       setMessage("Not enough points to buy this product!");
       return;
     }
+    // Open confirmation modal
     setSelectedProduct(product);
     setShowConfirmationModal(true);
   };
 
+  // If user confirms purchase in the modal
   const handleConfirmBuy = () => {
-    if (selectedProduct) {
-      confirmBuy(selectedProduct);
-    }
+    if (!selectedProduct) return;
+
+    // Generate a code and mark the product as redeemed
+    const code = generateRandomCode();
+    const updatedProduct = { ...selectedProduct, redeemed: true, code };
+
+    // Deduct points and update in GameContext
+    setPoints(points - selectedProduct.cost);
+    setBenefits((prevBenefits) => {
+      const exists = prevBenefits.find((b) => b.id === selectedProduct.id);
+      if (exists) {
+        return prevBenefits.map((b) =>
+          b.id === selectedProduct.id ? updatedProduct : b
+        );
+      }
+      return [...prevBenefits, updatedProduct];
+    });
+
+    // Update local store products so we disable the "Buy" button
+    setProducts((prev) =>
+      prev.map((p) => (p.id === selectedProduct.id ? updatedProduct : p))
+    );
+
+    // Show success modal with the code
+    setRedeemedProduct(updatedProduct);
+    setShowRedeemModal(true);
+
+    // Close confirmation modal
     setShowConfirmationModal(false);
     setSelectedProduct(null);
   };
 
+  // If user cancels purchase in the modal
   const handleCancelBuy = () => {
     setShowConfirmationModal(false);
     setSelectedProduct(null);
@@ -118,7 +128,7 @@ export default function Store() {
           </Link>
           <div className="points-display">{points} pts</div>
         </div>
-        <h1>Points store</h1>
+        <h1>Points Store</h1>
         <p>Redeem your points for tasty office treats!</p>
       </header>
 
@@ -176,6 +186,23 @@ export default function Store() {
                 No
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal: show code right away */}
+      {showRedeemModal && redeemedProduct && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Successfully redeemed {redeemedProduct.title}!</h3>
+            <p>Your unique code:</p>
+            <div className="code-area">{redeemedProduct.code}</div>
+            <button
+              className="modal-close-button"
+              onClick={() => setShowRedeemModal(false)}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
