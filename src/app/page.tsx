@@ -213,6 +213,8 @@ export default function Dashboard() {
     );
   };
 
+  const todayString = getTodayString();
+
   return (
     <main className="main-container">
       <div className="top-bar">
@@ -349,10 +351,11 @@ export default function Dashboard() {
             <p className="streak-day">Today</p>
             <p>+100 pts</p>
             <button
-              className="streak-collect-button"
+              className={lastCheckIn === todayString ? "streak-collected-button" : "streak-collect-button"}
               onClick={handleDailyPriceCheckIn}
+              disabled={lastCheckIn === todayString}
             >
-              Collect
+              {lastCheckIn === todayString ? "✔️ Collected" : "Collect"}
             </button>
           </div>
           <div className="streak-card">
