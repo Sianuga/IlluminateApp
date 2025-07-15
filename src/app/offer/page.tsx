@@ -36,14 +36,14 @@ const hardcodedRewards: Benefit[] = [
     title: "10-20% Discount at a Restaurant or Salad Bar",
     cost: 350,
     redeemed: false,
-    image: "/images/discount.jpg",
+    image: "/images/discount.webp",
   },
   {
     id: 4,
     title: "Voucher for Smoothie or Freshly Squeezed Juice",
     cost: 350,
     redeemed: false,
-    image: "/images/smoothie.jpg",
+    image: "/images/smoothie.webp",
   },
   // Medium Benefits
   {
@@ -58,28 +58,28 @@ const hardcodedRewards: Benefit[] = [
     title: "Lunch Voucher at a Nearby Restaurant",
     cost: 700,
     redeemed: false,
-    image: "/images/lunch.jpg",
+    image: "/images/lunch.webp",
   },
   {
     id: 7,
     title: "One-day Gym/Fitness Class Entry",
     cost: 1000,
     redeemed: false,
-    image: "/images/gym_day.jpg",
+    image: "/images/gym.webp",
   },
   {
     id: 8,
     title: "Shopping Gift Card (e.g. Empik, Rossmann)",
     cost: 1000,
     redeemed: false,
-    image: "/images/giftcard.jpg",
+    image: "/images/giftcard.webp",
   },
   {
     id: 9,
     title: "Voucher for Audiobook or Ebook",
     cost: 700,
     redeemed: false,
-    image: "/images/ebook.jpg",
+    image: "/images/ebook.jpeg",
   },
   // Large Benefits
   {
@@ -87,14 +87,14 @@ const hardcodedRewards: Benefit[] = [
     title: "Monthly Gym/Fitness Club Membership",
     cost: 3000,
     redeemed: false,
-    image: "/images/gym_membership.jpg",
+    image: "/images/gym.webp",
   },
   {
     id: 11,
     title: "Language Course or Development Workshop",
     cost: 4000,
     redeemed: false,
-    image: "/images/language_course.jpg",
+    image: "/images/language_course.webp",
   },
   {
     id: 12,

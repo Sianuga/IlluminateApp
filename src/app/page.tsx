@@ -40,22 +40,21 @@ export default function Dashboard() {
       title: "Tea/Coffee",
       cost: 300,
       redeemed: false,
-
-      image: "/hamburger.jpeg",
+      image: "/images/hamburger.jpeg",
     },
     {
       id: 2,
       title: "Movie Tickets",
       cost: 700,
       redeemed: false,
-      image: "/coffee.jpg",
+      image: "/images/coffee.jpg",
     },
     {
       id: 3,
       title: "Dinner Voucher",
       cost: 4500,
       redeemed: false,
-      image: "/sandwitch.jpg",
+      image: "/images/sandwitch.jpg",
     },
   ]);
 
